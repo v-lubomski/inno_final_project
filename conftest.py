@@ -7,7 +7,8 @@ from pages.application_page import Application
 def app(request):
     base_url = request.config.getoption("--base-url")
     allure_dir = request.config.getoption("--report-folder")
-    fixture = Application(base_url, allure_dir)
+    headless = request.config.getoption("--headless")
+    fixture = Application(base_url, headless, allure_dir)
     fixture.wd.implicitly_wait(10)
     fixture.wd.maximize_window()
     yield fixture
@@ -26,18 +27,12 @@ def pytest_addoption(parser):
         default="https://idemo.bspb.ru/",
         help="enter base_url",
     ),
-    # parser.addoption(
-    #     "--username",
-    #     action="store",
-    #     default="fobiw39468@homedepinst.com",
-    #     help="enter username",
-    # ),
-    # parser.addoption(
-    #     "--password",
-    #     action="store",
-    #     default="Password11",
-    #     help="enter password",
-    # ),
+    parser.addoption(
+        "--headless",
+        action="store",
+        default=True,
+        help="launching browser without gui",
+    ),
     parser.addoption(
         "--report-folder",
         action="store",
