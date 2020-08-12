@@ -15,9 +15,12 @@ def app(request):
     fixture.quit_app()
 
 
-@pytest.fixture
-def login():
-    pass
+@pytest.fixture(scope="module")
+def login(app):
+    app.open_main_page()
+    app.login.auth()
+    yield app
+    app.exit_button().click()
 
 
 def pytest_addoption(parser):

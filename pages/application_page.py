@@ -7,6 +7,8 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
 from common.logging import setup
+from locators.header_locators import HeaderLocators
+from pages.login_page import LoginPage
 
 logger = logging.getLogger()
 
@@ -21,6 +23,10 @@ class Application:
         self.create_dir_for_report(allure_dir)
         self.wd = webdriver.Chrome(driver_path, options=options)
         self.base_url = base_url
+        self.login = LoginPage(self)
+
+    def exit_button(self):
+        return self.wd.find_element(*HeaderLocators.EXIT)
 
     @allure.step("Открытие главной страницы")
     def open_main_page(self):
