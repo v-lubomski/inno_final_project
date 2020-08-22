@@ -2,6 +2,18 @@
 
 [![Build Status](https://travis-ci.org/v-lubomski/inno_final_project.svg?branch=master)](https://travis-ci.org/v-lubomski/inno_final_project)
 
+<h2>Roadmap</h2>
+
+<ul>
+<li>CI (Travis) + pre-commit (linter locally and remote)</li>
+<li>Docstring's test-cases (steps + result)</li>
+<li>Tests (3 sections * 4 tests for one)</li>
+<li>Reports (Allure)</li>
+<li>Fill README.md (installation, running test, purpose of testing)</li>
+</ul>
+
+
+
 <h2>Тест-кейсы</h2>
 
 <h3>Раздел 1: Карты</h3>
