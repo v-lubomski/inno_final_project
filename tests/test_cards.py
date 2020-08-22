@@ -31,25 +31,35 @@ def test_order_new_card(login, card_name, credit_limit, division):
     assert login.cards.successful_message() == "Card was successfully ordered!"
 
 
+@pytest.mark.parametrize(
+    "card_number, card_month, card_year, cvv",
+    [("1234567812345678", "12", "2024", "123")],
+)
+@allure.title("Add other bank card")
+def test_add_other_bank_card(login, card_number, card_month, card_year, cvv):
+    """
+        1. Open the cards page
+        2. Click to the "Add the other bank card" button
+        3. Fill card's data and confirm form
+        4. Confirm the sms code
+        5. Check the successful message
+
+        Result: successful message on the page
+    """
+    login.cards.open_cards_page()
+    login.cards.click_add_other_bank_button()
+    login.cards.fill_other_bank_card_fields(card_number, card_month, card_year, cvv)
+    login.cards.submit_adding_other_bank_card()
+    login.cards.confirm_sms_code()
+    assert (
+        login.cards.successful_message()
+        == f"Card {card_number[0:4]} {card_number[4:6]}** "
+        f"**** {card_number[-4:]} successfully added"
+    )
+
+
 #
-#
-# def test_add_other_bank_card(app: Application, login):
-#     """
-#         1. Open the cards page
-#         2. Click to the "Add the other bank card" button
-#         3. Fill card's data and confirm form
-#         4. Confirm the sms code
-#         5. Check the successful message
-#
-#         Result: successful message on the page
-#     """
-#     app.open_main_page()
-#     app.cards.open_cards_page()
-#     app.cards.add_other_bank_card(card_data)
-#     assert app.cards.is_adding_other_bank_card_successful()
-#
-#
-# def test_create_virtual_card(app: Application, login):
+# def test_create_virtual_card(login):
 #     """
 #         1. Open the cards page
 #         2. Click to the "Order new card" button
@@ -61,13 +71,12 @@ def test_order_new_card(login, card_name, credit_limit, division):
 #
 #         Result: successful message on the page
 #     """
-#     app.open_main_page()
 #     app.cards.open_cards_page()
 #     app.cards.order_card(cardname='virtual', division=division)
 #     assert app.cards.is_order_successful()
 #
 #
-# def test_blocking_card(app: Application, login):
+# def test_blocking_card(login):
 #     """
 #         1. Open the cards page
 #         2. Click the "block" button
@@ -77,7 +86,6 @@ def test_order_new_card(login, card_name, credit_limit, division):
 #
 #         Result: successful message on the page
 #     """
-#     app.open_main_page()
 #     app.cards.open_cards_page()
 #     app.cards.block_card()
 #     assert app.cards.is_card_blocked()

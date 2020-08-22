@@ -65,6 +65,24 @@ class CardsPage:
         logger.info("Check is order card successful")
         return self.app.wd.find_element(*CardsLocators.SUCCESSFUL_MESSAGE).text
 
+    @allure.step('Click to the "Add other bank card" button')
+    def click_add_other_bank_button(self):
+        logger.info('Click to the "Add other bank card" button')
+        self.app.wd.find_element(*CardsLocators.ADD_OTHER_BANK_CARD_BUTTON).click()
+
+    @allure.step("Fill other bank card fields")
+    def fill_other_bank_card_fields(self, card_number, card_month, card_year, cvv):
+        logger.info("Fill other bank card fields")
+        self.app.wd.find_element(*CardsLocators.CARD_NUMBER).send_keys(card_number)
+        self.app.wd.find_element(*CardsLocators.CARD_MONTH).send_keys(card_month)
+        self.app.wd.find_element(*CardsLocators.CARD_YEAR).send_keys(card_year)
+        self.app.wd.find_element(*CardsLocators.CARD_CVV).send_keys(cvv)
+
+    @allure.step("Submit adding other bank card")
+    def submit_adding_other_bank_card(self):
+        logger.info("Submit adding other bank card")
+        self.app.wd.find_element(*CardsLocators.SAVE_OTHER_BANK_CARD_BUTTON).click()
+
     # def add_other_bank_card(self, card_data):
     #     pass
     #
