@@ -1,4 +1,5 @@
 import logging
+from time import sleep
 
 import allure
 from selenium.webdriver.common.by import By
@@ -56,6 +57,7 @@ class CardsPage:
         logger.info("Confirm the sms code")
         iframe = self.app.wd.find_element(By.ID, "confirmation-frame")
         self.app.wd.switch_to.frame(iframe)
+        sleep(1)
         self.app.wd.find_element(*CardsLocators.CONFIRM_SMS_BUTTON).click()
 
     @allure.step("Check is order card successful")
