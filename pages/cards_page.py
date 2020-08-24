@@ -40,7 +40,9 @@ class CardsPage:
     @allure.step('Click to the "Order" button under the card block')
     def click_order_button(self, card_name):
         logger.info('Click to the "Order" button under the card block')
-        self.card_element(card_name).find_element(*CardsLocators.ORDER_BUTTON).click()
+        card = self.card_element(card_name)
+        button = card.find_element(*CardsLocators.ORDER_BUTTON)
+        button.click()
 
     @allure.step("Pick the division of bank")
     def pick_division_of_bank(self, division):
@@ -84,15 +86,13 @@ class CardsPage:
         self.app.wd.find_element(*CardsLocators.SAVE_OTHER_BANK_CARD_BUTTON).click()
 
     @allure.step("Fill virtual card form")
-    def fill_virtual_card_form(self, account, limit, name, period):
+    def fill_virtual_card_form(self, account, limit, period):
         logger.info("Fill virtual card form")
         self.app.wd.find_element(
             *CardsLocators.BANK_ACCOUNT_FOR_VIRTUAL_CARD
         ).send_keys(account)
+        self.app.wd.find_element(*CardsLocators.VIRTUAL_CARD_LIMIT).clear()
         self.app.wd.find_element(*CardsLocators.VIRTUAL_CARD_LIMIT).send_keys(limit)
-        self.app.wd.find_element(*CardsLocators.VIRTUAL_CARD_HOLDER_NAME).send_keys(
-            name
-        )
         self.app.wd.find_element(*CardsLocators.VIRTUAL_CARD_DURATION).send_keys(period)
         self.app.wd.find_element(*CardsLocators.CREATE_VIRTUAL_CARD_BUTTON).click()
 

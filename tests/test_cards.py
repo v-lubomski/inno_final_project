@@ -59,11 +59,10 @@ def test_add_other_bank_card(login, card_number, card_month, card_year, cvv):
 
 
 @pytest.mark.parametrize(
-    "account, limit, name, period",
-    [("Зарплатный", "40000", "IVAN IVANOV", "3 месяца")],
+    "account, limit, period", [("Зарплатный", "40000", "3 месяца")],
 )
 @allure.title("Create virtual card")
-def test_create_virtual_card(login, account, limit, name, period):
+def test_create_virtual_card(login, account, limit, period):
     """
         1. Open the cards page
         2. Click to the "Order new card" button
@@ -80,12 +79,10 @@ def test_create_virtual_card(login, account, limit, name, period):
     login.cards.click_order_button(
         "VIRTUAL"
     )  # РАзобраться, почему нажимается кнопка заказа другой карты
-    login.cards.fill_virtual_card_form(account, limit, name, period)
+    login.cards.fill_virtual_card_form(account, limit, period)
     login.cards.mark_checkbox()
     login.cards.confirm_sms_code()
-    assert (
-        login.cards.virtual_card_created_message() == "Card was successfully ordered!"
-    )
+    assert login.cards.virtual_card_created_message() == "Your virtual card is ready"
 
 
 #
