@@ -76,9 +76,7 @@ def test_create_virtual_card(login, account, limit, period):
     """
     login.cards.open_cards_page()
     login.cards.click_order_new_card_button()
-    login.cards.click_order_button(
-        "VIRTUAL"
-    )  # РАзобраться, почему нажимается кнопка заказа другой карты
+    login.cards.click_order_button("VIRTUAL")
     login.cards.fill_virtual_card_form(account, limit, period)
     login.cards.mark_checkbox()
     login.cards.confirm_sms_code()
