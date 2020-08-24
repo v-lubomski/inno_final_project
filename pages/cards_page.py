@@ -38,9 +38,11 @@ class CardsPage:
             ).click()
 
     @allure.step('Click to the "Order" button under the card block')
-    def click_order_button(self):
+    def click_order_button(self, card_name):
         logger.info('Click to the "Order" button under the card block')
-        self.app.wd.find_element(*CardsLocators.ORDER_BUTTON).click()
+        card = self.card_element(card_name)
+        button = card.find_element(*CardsLocators.ORDER_BUTTON)
+        button.click()
 
     @allure.step("Pick the division of bank")
     def pick_division_of_bank(self, division):
@@ -83,11 +85,29 @@ class CardsPage:
         logger.info("Submit adding other bank card")
         self.app.wd.find_element(*CardsLocators.SAVE_OTHER_BANK_CARD_BUTTON).click()
 
-    # def add_other_bank_card(self, card_data):
-    #     pass
-    #
-    # def is_adding_other_bank_card_successful(self):
-    #     pass
+    @allure.step("Fill virtual card form")
+    def fill_virtual_card_form(self, account, limit, period):
+        logger.info("Fill virtual card form")
+        self.app.wd.find_element(
+            *CardsLocators.BANK_ACCOUNT_FOR_VIRTUAL_CARD
+        ).send_keys(account)
+        self.app.wd.find_element(*CardsLocators.VIRTUAL_CARD_LIMIT).clear()
+        self.app.wd.find_element(*CardsLocators.VIRTUAL_CARD_LIMIT).send_keys(limit)
+        self.app.wd.find_element(*CardsLocators.VIRTUAL_CARD_DURATION).send_keys(period)
+        self.app.wd.find_element(*CardsLocators.CREATE_VIRTUAL_CARD_BUTTON).click()
+
+    @allure.step("Mark checkbox")
+    def mark_checkbox(self):
+        logger.info("Mark checkbox")
+        self.app.wd.find_element(*CardsLocators.VIRTUAL_CARD_CHECKBOX).click()
+
+    @allure.step("Get virtual card created message")
+    def virtual_card_created_message(self):
+        logger.info("Get virtual card created message")
+        return self.app.wd.find_element(
+            *CardsLocators.VIRTUAL_CARD_CREATED_MESSAGE
+        ).text
+
     #
     # def block_card(self):
     #     pass
@@ -96,35 +116,3 @@ class CardsPage:
     #     pass
     #
     #
-    #
-    # # =============================
-    # def sign_in_page_button(self):
-    #     return self.app.wd.find_element(*RegistrationLocators.SIGN_IN_BUTTON)
-    #
-    # def email_for_create_input(self):
-    #     return self.app.wd.find_element(*RegistrationLocators.EMAIL)
-    #
-    # @allure.step("Нажатие кнопки sign in на главной странице")
-    # @allure.step("Ввод email")
-    # @allure.step("Нажатие кнопки create an account")
-    # def start_registration_process(self, user_data: RegistrationUserData):
-    #     self.sign_in_page_button().click()
-    #     self.email_for_create_input().send_keys(user_data.email)
-    #     self.submit_create_button().click()
-    #
-    # @allure.step("Заполнение обязательных полей для регистрации")
-    # def fill_requireds(self, user_data):
-    #     fill_input(self.first_name_input, user_data.first_name)
-    #     fill_input(self.last_name_input, user_data.last_name)
-    #     fill_input(self.password_input, user_data.password)
-    #     fill_input(self.address_input, user_data.address)
-    #     fill_input(self.city_input, user_data.city)
-    #     fill_select(self.state_list, user_data.state)
-    #     fill_input(self.postal_code_input, user_data.postal_code)
-    #     fill_input(self.mobile_phone_input, user_data.mobile_phone)
-    #     self.register_button_input().click()
-    #
-    # def check_my_account(self):
-    #     if len(self.my_account()) == 0:
-    #         return False
-    #     return True

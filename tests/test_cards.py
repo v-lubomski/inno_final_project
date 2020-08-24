@@ -24,7 +24,7 @@ def test_order_new_card(login, card_name, credit_limit, division):
     login.cards.open_cards_page()
     login.cards.click_order_new_card_button()
     login.cards.click_credit_limit_radiobutton(card_name, credit_limit)
-    login.cards.click_order_button()
+    login.cards.click_order_button(card_name)
     login.cards.pick_division_of_bank(division)
     login.cards.submit_application()
     login.cards.confirm_sms_code()
@@ -58,23 +58,31 @@ def test_add_other_bank_card(login, card_number, card_month, card_year, cvv):
     )
 
 
-#
-# def test_create_virtual_card(login):
-#     """
-#         1. Open the cards page
-#         2. Click to the "Order new card" button
-#         3. Click to the "Order" button (for "Virtual" card)
-#         4. Click the "Create virtual card" button
-#         5. Mark agreement checkbox
-#         6. Confirm the sms code
-#         7. Check the successful message
-#
-#         Result: successful message on the page
-#     """
-#     app.cards.open_cards_page()
-#     app.cards.order_card(cardname='virtual', division=division)
-#     assert app.cards.is_order_successful()
-#
+@pytest.mark.parametrize(
+    "account, limit, period", [("Зарплатный", "40000", "3 месяца")],
+)
+@allure.title("Create virtual card")
+def test_create_virtual_card(login, account, limit, period):
+    """
+        1. Open the cards page
+        2. Click to the "Order new card" button
+        3. Click to the "Order" button (for "Virtual" card)
+        4. Click the "Create virtual card" button
+        5. Mark agreement checkbox
+        6. Confirm the sms code
+        7. Check the successful message
+
+        Result: successful message on the page
+    """
+    login.cards.open_cards_page()
+    login.cards.click_order_new_card_button()
+    login.cards.click_order_button("VIRTUAL")
+    login.cards.fill_virtual_card_form(account, limit, period)
+    login.cards.mark_checkbox()
+    login.cards.confirm_sms_code()
+    assert login.cards.virtual_card_created_message() == "Your virtual card is ready"
+
+
 #
 # def test_blocking_card(login):
 #     """

@@ -14,11 +14,11 @@ class LoginPage:
     def login_button(self):
         return self.app.wd.find_element(*AuthLocators.SUBMIT_LOGIN)
 
-    def code_button(self):
+    def sms_code_button(self):
         return self.app.wd.find_element(*AuthLocators.SUBMIT_CODE)
 
     @allure.step("Авторизация")
     def auth(self):
         logger.info("Default authorization")
         self.login_button().click()
-        self.code_button().click()
+        self.sms_code_button().click()

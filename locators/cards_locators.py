@@ -8,10 +8,7 @@ class CardsLocators:
         By.XPATH,
         '//label[@class="credit-card-toggle span7"]',
     )
-    ORDER_BUTTON = (
-        By.XPATH,
-        "//button[@class='btn btn-primary span5 btn-huge start-order-btn']",
-    )
+    ORDER_BUTTON = (By.XPATH, ".//*[contains(@class, 'btn btn-primary')]")
     DIVISION_OF_BANK = (By.XPATH, '//select[@id="card-branch"]')
     SUBMIT_APPLICATION = (By.XPATH, '//button[@id="forward"]')
     CONFIRM_SMS_BUTTON = (By.XPATH, '//button[@id="confirm"]')
@@ -22,3 +19,12 @@ class CardsLocators:
     CARD_YEAR = (By.XPATH, '//input[@name="card.validityYear"]')
     CARD_CVV = (By.XPATH, '//input[@name="card.cvv"]')
     SAVE_OTHER_BANK_CARD_BUTTON = (By.ID, "bind-card")
+    BANK_ACCOUNT_FOR_VIRTUAL_CARD = (By.XPATH, '//select[@name="accountId"]')
+    VIRTUAL_CARD_LIMIT = (By.XPATH, '//input[@name="cardOrder.limit"]')
+    VIRTUAL_CARD_DURATION = (
+        By.XPATH,
+        '//select[@name="cardOrder.validityDurationMonths"]',
+    )
+    CREATE_VIRTUAL_CARD_BUTTON = (By.ID, "submit-button")
+    VIRTUAL_CARD_CHECKBOX = (By.XPATH, '//input[@name="condition.virtualConditions"]')
+    VIRTUAL_CARD_CREATED_MESSAGE = (By.XPATH, "//div/h1")
