@@ -1,11 +1,11 @@
 import logging
-from time import sleep
 
 import allure
 from selenium.webdriver.common.by import By
 
+from common.common_locators import CommonLocators
+from common.common_pages import confirm_sms_code
 from locators.cards_locators import CardsLocators
-from locators.header_locators import HeaderLocators
 
 logger = logging.getLogger()
 
@@ -22,7 +22,7 @@ class CardsPage:
     @allure.step("Opening the cards page")
     def open_cards_page(self):
         logger.info("Opening the cards page")
-        self.app.wd.find_element(*HeaderLocators.CARDS_TAB).click()
+        self.app.wd.find_element(*CommonLocators.CARDS_TAB).click()
 
     @allure.step('Click to the "Order new card" button')
     def click_order_new_card_button(self):
@@ -53,15 +53,6 @@ class CardsPage:
     def submit_application(self):
         logger.info("Submit application")
         self.app.wd.find_element(*CardsLocators.SUBMIT_APPLICATION).click()
-
-    @allure.step("Confirm the sms code")
-    def confirm_sms_code(self):
-        logger.info("Confirm the sms code")
-        if self.app.wd.find_elements(By.ID, "confirmation-frame"):
-            iframe = self.app.wd.find_element(By.ID, "confirmation-frame")
-            self.app.wd.switch_to.frame(iframe)
-        sleep(1)
-        self.app.wd.find_element(*CardsLocators.CONFIRM_SMS_BUTTON).click()
 
     @allure.step("Check is order card successful")
     def successful_message(self):
@@ -114,12 +105,12 @@ class CardsPage:
         logger.info("Unblock card if blocking")
         if self.app.wd.find_elements(*CardsLocators.CARD_UNBLOCK_BUTTON):
             self.app.wd.find_element(*CardsLocators.CARD_UNBLOCK_BUTTON).click()
-            self.confirm_sms_code()
+            confirm_sms_code(self.app)
         logger.info("Start blocking process")
         self.app.wd.find_element(*CardsLocators.CARD_BLOCK_BUTTON).click()
         logger.info("Confirm blocking type")
         self.app.wd.find_element(*CardsLocators.CONFIRM_BLOCK_CARD).click()
-        self.confirm_sms_code()
+        confirm_sms_code(self.app)
 
     @allure.step("Check is card blocked")
     def is_card_blocked(self):

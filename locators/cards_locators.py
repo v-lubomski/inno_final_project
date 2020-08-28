@@ -11,7 +11,6 @@ class CardsLocators:
     ORDER_BUTTON = (By.XPATH, ".//*[contains(@class, 'btn btn-primary')]")
     DIVISION_OF_BANK = (By.XPATH, '//select[@id="card-branch"]')
     SUBMIT_APPLICATION = (By.XPATH, '//button[@id="forward"]')
-    CONFIRM_SMS_BUTTON = (By.XPATH, '//button[@id="confirm"]')
     SUCCESSFUL_MESSAGE = (By.CLASS_NAME, "alert-success")
     ADD_OTHER_BANK_CARD_BUTTON = (By.ID, "other-bank-card-bind")
     CARD_NUMBER = (By.XPATH, '//input[@name="card.number"]')
