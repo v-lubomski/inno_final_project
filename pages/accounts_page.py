@@ -1,6 +1,7 @@
 import logging
 
 import allure
+from selenium.webdriver import ActionChains
 
 from common.common_locators import CommonLocators
 from common.common_pages import confirm_sms_code
@@ -97,25 +98,42 @@ class AccountsPage:
         logger.info("Close requisites popup")
         self.app.wd.find_element(*AccountsLocators.CLOSE_REQUISITES).click()
 
-    #
-    # @allure.step('')
-    # def(self):
-    #     logger.info('')
-    #
-    # @allure.step('')
-    # def(self):
-    #     logger.info('')
-    #    # @allure.step('')
-    # def(self):
-    #     logger.info('')
-    #
-    # @allure.step('')
-    # def(self):
-    #     logger.info('')
-    #
-    # @allure.step('')
-    # def(self):
-    #     logger.info('')
+    @allure.step("Open accounting page")
+    def open_accounting_page(self):
+        logger.info("Open accounting page")
+        element_to_hover_over = self.app.wd.find_element(*CommonLocators.ACCOUNTS_TAB)
+        hover = ActionChains(self.app.wd).move_to_element(element_to_hover_over)
+        hover.perform()
+        self.app.wd.find_element(*CommonLocators.ACCOUNTING_TAB).click()
+
+    @allure.step("Filling form for the accounting")
+    def fill_form_for_accounting(self, account, data_from, data_to):
+        logger.info("Filling form for the accounting")
+        self.app.wd.find_element(*AccountsLocators.ACCOUNTING_ACCOUNT).send_keys(
+            account
+        )
+        self.app.wd.find_element(*AccountsLocators.ACCOUNTING_DATE_FROM).clear()
+        self.app.wd.find_element(*AccountsLocators.ACCOUNTING_DATE_TO).clear()
+        self.app.wd.find_element(*AccountsLocators.ACCOUNTING_DATE_FROM).send_keys(
+            data_from
+        )
+        self.app.wd.find_element(*AccountsLocators.ACCOUNTING_DATE_TO).send_keys(
+            data_to
+        )
+        self.app.wd.find_element(*AccountsLocators.GET_ACCOUNTING).click()
+
+    @allure.step("Get accounting dates")
+    def shown_period_dates(self):
+        logger.info("Get accounting dates")
+        return self.app.wd.find_element(*AccountsLocators.ACCOUNTING_DATES_RESULT).text
+
+    @allure.step("Get accounting account")
+    def shown_selected_account(self):
+        logger.info("Get accounting account")
+        return self.app.wd.find_element(
+            *AccountsLocators.ACCOUNTING_ACCOUNT_RESULT
+        ).text
+
     #
     # @allure.step('')
     # def(self):

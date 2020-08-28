@@ -23,10 +23,16 @@ class AccountsLocators:
         By.XPATH,
         '//div[@id="requisites-popup"]//button[@class="close"]',
     )
-    # = (By., '')
-    # = (By., '')
-    # = (By., '')
-    # = (By., '')
+
+    ACCOUNTING_ACCOUNT = (By.NAME, "accountId")
+    ACCOUNTING_DATE_FROM = (By.NAME, "from")
+    ACCOUNTING_DATE_TO = (By.NAME, "until")
+    GET_ACCOUNTING = (By.ID, "query-button")
+    ACCOUNTING_DATES_RESULT = (
+        By.XPATH,
+        '(//div[@class="statement-header clearfix"]/div)[last()]',
+    )
+    ACCOUNTING_ACCOUNT_RESULT = (By.XPATH, '//span[@class="print-hidden"]')
     # = (By., '')
     #
     #

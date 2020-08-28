@@ -33,7 +33,6 @@ def test_open_account(login, currency, division, agreement):
 
 
 @pytest.mark.parametrize("account_for_transfer", ["Зарплатный"])
-@allure.title("Open account")
 @allure.title("Close account")
 def test_close_account(login, account_for_transfer):
     """
@@ -66,19 +65,21 @@ def test_view_requisites(login):
     login.accounts.close_requisites()
 
 
-# @allure.title("Show accounting")
-# def test_show_accounting(login):
-#     """
-#         1. Open accounting page
-#         2. Pick account for accounting
-#
-#         Results:
-#         - Period = period dates in the filter
-#         - Account = selected account
-#     """
-#     login.accounts.open_accounting_page()
-#     login.accounts.pick_account_for_accounting()
-#     selected_account = login.accounts.remember_selected_account()
-#     selected_dates = login.accounts.remember_selected_dates()
-#     assert login.accounts.shown_period_dates == selected_dates
-#     assert login.accounts.shown_selected_account == selected_account
+@pytest.mark.parametrize(
+    "account, data_from, data_to", [("Зарплатный", "24.08.2020", "27.08.2020")]
+)
+@allure.title("Show accounting")
+def test_show_accounting(login, account, data_from, data_to):
+    """
+        1. Open accounting page
+        2. Pick account for accounting
+
+        Results:
+        - Period = period dates in the filter
+        - Account = selected account
+    """
+    login.accounts.open_accounting_page()
+    login.accounts.fill_form_for_accounting(account, data_from, data_to)
+    assert data_from in login.accounts.shown_period_dates()
+    assert data_to in login.accounts.shown_period_dates()
+    assert account in login.accounts.shown_selected_account()
