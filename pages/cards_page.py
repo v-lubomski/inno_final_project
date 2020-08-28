@@ -57,8 +57,9 @@ class CardsPage:
     @allure.step("Confirm the sms code")
     def confirm_sms_code(self):
         logger.info("Confirm the sms code")
-        iframe = self.app.wd.find_element(By.ID, "confirmation-frame")
-        self.app.wd.switch_to.frame(iframe)
+        if self.app.wd.find_elements(By.ID, "confirmation-frame"):
+            iframe = self.app.wd.find_element(By.ID, "confirmation-frame")
+            self.app.wd.switch_to.frame(iframe)
         sleep(1)
         self.app.wd.find_element(*CardsLocators.CONFIRM_SMS_BUTTON).click()
 
@@ -108,11 +109,22 @@ class CardsPage:
             *CardsLocators.VIRTUAL_CARD_CREATED_MESSAGE
         ).text
 
-    #
-    # def block_card(self):
-    #     pass
-    #
-    # def is_card_blocked(self):
-    #     pass
-    #
-    #
+    @allure.step("Blocking the card")
+    def block_card(self):
+        logger.info("Unblock card if blocking")
+        if self.app.wd.find_elements(*CardsLocators.CARD_UNBLOCK_BUTTON):
+            self.app.wd.find_element(*CardsLocators.CARD_UNBLOCK_BUTTON).click()
+            self.confirm_sms_code()
+        logger.info("Start blocking process")
+        self.app.wd.find_element(*CardsLocators.CARD_BLOCK_BUTTON).click()
+        logger.info("Confirm blocking type")
+        self.app.wd.find_element(*CardsLocators.CONFIRM_BLOCK_CARD).click()
+        self.confirm_sms_code()
+
+    @allure.step("Check is card blocked")
+    def is_card_blocked(self):
+        logger.info("Check is card blocked")
+        message = self.app.wd.find_element(By.CLASS_NAME, "alert-success").text
+        success_message = "successfully blocked"
+        result = success_message in message
+        return result

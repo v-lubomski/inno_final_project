@@ -28,3 +28,6 @@ class CardsLocators:
     CREATE_VIRTUAL_CARD_BUTTON = (By.ID, "submit-button")
     VIRTUAL_CARD_CHECKBOX = (By.XPATH, '//input[@name="condition.virtualConditions"]')
     VIRTUAL_CARD_CREATED_MESSAGE = (By.XPATH, "//div/h1")
+    CARD_BLOCK_BUTTON = (By.XPATH, '//a[@class="card-block"]')
+    CARD_UNBLOCK_BUTTON = (By.XPATH, '//a[@class="card-unblock"]')
+    CONFIRM_BLOCK_CARD = (By.ID, "block-card")

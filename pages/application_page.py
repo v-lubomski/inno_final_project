@@ -22,7 +22,6 @@ class Application:
         options = Options()
         options.headless = headless
         self.create_dir_for_report(allure_dir)
-        # self.wd = webdriver.Chrome(options=options)
         self.wd = webdriver.Chrome(driver_path, options=options)
         self.base_url = base_url
         self.login = LoginPage(self)

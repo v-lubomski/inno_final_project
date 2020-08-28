@@ -83,17 +83,16 @@ def test_create_virtual_card(login, account, limit, period):
     assert login.cards.virtual_card_created_message() == "Your virtual card is ready"
 
 
-#
-# def test_blocking_card(login):
-#     """
-#         1. Open the cards page
-#         2. Click the "block" button
-#         3. Confirm the pop-up "block" button
-#         4. Confirm the sms code
-#         5. Check the successful message
-#
-#         Result: successful message on the page
-#     """
-#     app.cards.open_cards_page()
-#     app.cards.block_card()
-#     assert app.cards.is_card_blocked()
+def test_blocking_card(login):
+    """
+        1. Open the cards page
+        2. Click the "block" button
+        3. Confirm the pop-up "block" button
+        4. Confirm the sms code
+        5. Check the successful message
+
+        Result: successful message on the page
+    """
+    login.cards.open_cards_page()
+    login.cards.block_card()
+    assert login.cards.is_card_blocked()
