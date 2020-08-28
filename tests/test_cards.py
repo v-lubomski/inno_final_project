@@ -1,6 +1,8 @@
 import allure
 import pytest
 
+from common.common_pages import confirm_sms_code
+
 
 @pytest.mark.parametrize(
     "card_name, credit_limit, division",
@@ -27,7 +29,7 @@ def test_order_new_card(login, card_name, credit_limit, division):
     login.cards.click_order_button(card_name)
     login.cards.pick_division_of_bank(division)
     login.cards.submit_application()
-    login.cards.confirm_sms_code()
+    confirm_sms_code(login)
     assert login.cards.successful_message() == "Card was successfully ordered!"
 
 
@@ -50,7 +52,7 @@ def test_add_other_bank_card(login, card_number, card_month, card_year, cvv):
     login.cards.click_add_other_bank_button()
     login.cards.fill_other_bank_card_fields(card_number, card_month, card_year, cvv)
     login.cards.submit_adding_other_bank_card()
-    login.cards.confirm_sms_code()
+    confirm_sms_code(login)
     assert (
         login.cards.successful_message()
         == f"Card {card_number[0:4]} {card_number[4:6]}** "
@@ -79,7 +81,7 @@ def test_create_virtual_card(login, account, limit, period):
     login.cards.click_order_button("VIRTUAL")
     login.cards.fill_virtual_card_form(account, limit, period)
     login.cards.mark_checkbox()
-    login.cards.confirm_sms_code()
+    confirm_sms_code(login)
     assert login.cards.virtual_card_created_message() == "Your virtual card is ready"
 
 

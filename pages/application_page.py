@@ -6,8 +6,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
+from common.common_locators import CommonLocators
 from common.logging import setup
-from locators.header_locators import HeaderLocators
+from pages.accounts_page import AccountsPage
 from pages.cards_page import CardsPage
 from pages.login_page import LoginPage
 
@@ -26,14 +27,15 @@ class Application:
         self.base_url = base_url
         self.login = LoginPage(self)
         self.cards = CardsPage(self)
+        self.accounts = AccountsPage(self)
 
     def exit_button(self):
         logger.info("Click to exit button")
-        return self.wd.find_element(*HeaderLocators.EXIT)
+        return self.wd.find_element(*CommonLocators.EXIT)
 
     def cards_tab_button(self):
         logger.info("Click to 'Cards' button on the menu bar")
-        return self.wd.find_element(*HeaderLocators.CARDS_TAB)
+        return self.wd.find_element(*CommonLocators.CARDS_TAB)
 
     @allure.step("Открытие главной страницы")
     def open_main_page(self):
