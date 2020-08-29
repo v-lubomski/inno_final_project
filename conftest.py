@@ -45,7 +45,7 @@ def pytest_addoption(parser):
     parser.addoption(
         "--report-folder",
         action="store",
-        default="/tmp/allure_results",
+        default="allure_results",
         help="enter path to allure dir",
     ),
 
@@ -55,9 +55,9 @@ def pytest_runtest_makereport(item, call):
     outcome = yield
     rep = outcome.get_result()
     if rep.when == "call" and rep.failed:
-        mode = "a" if os.path.exists("/tmp/allure_results/failures") else "w"
+        mode = "a" if os.path.exists("allure_results/failures") else "w"
         try:
-            with open("/tmp/allure_results/failures", mode):
+            with open("allure_results/failures", mode):
                 if "app" in item.fixturenames:
                     web_driver = item.funcargs["app"]
                 else:
