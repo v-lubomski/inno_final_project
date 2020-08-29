@@ -88,3 +88,7 @@ make pytest
 make allure
 make report
 ```
+Для запуска тестов в GUI режиме, необходимо закомментировать в файле pytest.ini строку
+```sh
+--headless
+```
