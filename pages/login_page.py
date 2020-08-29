@@ -17,7 +17,7 @@ class LoginPage:
     def sms_code_button(self):
         return self.app.wd.find_element(*AuthLocators.SUBMIT_CODE)
 
-    @allure.step("Авторизация")
+    @allure.step("Authorization")
     def auth(self):
         logger.info("Default authorization")
         self.login_button().click()

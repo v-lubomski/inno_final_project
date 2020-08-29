@@ -33,10 +33,3 @@ class AccountsLocators:
         '(//div[@class="statement-header clearfix"]/div)[last()]',
     )
     ACCOUNTING_ACCOUNT_RESULT = (By.XPATH, '//span[@class="print-hidden"]')
-    # = (By., '')
-    #
-    #
-
-
-#     CREATE_VIRTUAL_CARD_BUTTON = (By.ID, "submit-button")
-#     VIRTUAL_CARD_CHECKBOX = (By.XPATH, '//input[@name="condition.virtualConditions"]')

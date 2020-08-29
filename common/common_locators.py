@@ -6,5 +6,6 @@ class CommonLocators:
     CARDS_TAB = (By.ID, "cards-overview-index")
     ACCOUNTS_TAB = (By.ID, "accounts-index")
     ACCOUNTING_TAB = (By.ID, "statements-statement")
+    DEPOSITS_TAB = (By.ID, "deposits-index")
     CONFIRM_SMS_BUTTON = (By.XPATH, '//button[@id="confirm"]')
     CONFIRMATION_IFRAME = (By.ID, "confirmation-frame")

@@ -10,6 +10,7 @@ from common.common_locators import CommonLocators
 from common.logging import setup
 from pages.accounts_page import AccountsPage
 from pages.cards_page import CardsPage
+from pages.deposits_page import DepositsPage
 from pages.login_page import LoginPage
 
 logger = logging.getLogger()
@@ -28,6 +29,7 @@ class Application:
         self.login = LoginPage(self)
         self.cards = CardsPage(self)
         self.accounts = AccountsPage(self)
+        self.deposits = DepositsPage(self)
 
     def exit_button(self):
         logger.info("Click to exit button")
@@ -37,7 +39,7 @@ class Application:
         logger.info("Click to 'Cards' button on the menu bar")
         return self.wd.find_element(*CommonLocators.CARDS_TAB)
 
-    @allure.step("Открытие главной страницы")
+    @allure.step("Opening main page")
     def open_main_page(self):
         logger.info("Open main page")
         self.wd.get(self.base_url)
