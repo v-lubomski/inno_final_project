@@ -1,6 +1,12 @@
+import logging
+import os
+
+import allure
 import pytest
 
 from pages.application_page import Application
+
+logger = logging.getLogger()
 
 
 @pytest.fixture(scope="session")
@@ -42,3 +48,25 @@ def pytest_addoption(parser):
         default="/tmp/allure_results",
         help="enter path to allure dir",
     ),
+
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    rep = outcome.get_result()
+    if rep.when == "call" and rep.failed:
+        mode = "a" if os.path.exists("/tmp/allure_results/failures") else "w"
+        try:
+            with open("/tmp/allure_results/failures", mode):
+                if "app" in item.fixturenames:
+                    web_driver = item.funcargs["app"]
+                else:
+                    logger.error("Fail to take screen-shot")
+                    return
+            allure.attach(
+                web_driver.wd.get_screenshot_as_png(),
+                name="screenshot",
+                attachment_type=allure.attachment_type.PNG,
+            )
+        except Exception as e:
+            logger.error("Fail to take screen-shot: {}".format(e))
