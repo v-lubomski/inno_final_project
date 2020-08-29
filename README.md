@@ -1,7 +1,8 @@
+[![Build Status](https://travis-ci.org/v-lubomski/inno_final_project.svg?branch=master)](https://travis-ci.org/v-lubomski/inno_final_project)
+
+
 # Аттестационный проект курса "Автоматизированное тестирование ПО на Python"
 Студент: Владислав Любомский
-
-[![Build Status](https://travis-ci.org/v-lubomski/inno_final_project.svg?branch=master)](https://travis-ci.org/v-lubomski/inno_final_project)
 
 
 ## Объект тестирования
@@ -14,7 +15,7 @@
 
 
 ## Выбранные сценарии тестирования
-<h3>Раздел 1: Карты</h3>
+<h3>Раздел Карты</h3>
 <ul>
 <li>Заказать новую карту</li>
 <li>Добавить карту другого банка</li>
@@ -22,7 +23,7 @@
 <li>Заблокировать карту</li>
 </ul>
 
-<h3>Раздел 2: Счета</h3>
+<h3>Раздел Счета</h3>
 <ul>
 <li>Открытие счёта</li>
 <li>Закрытие счёта</li>
@@ -30,7 +31,7 @@
 <li>Просмотр выписки</li>
 </ul>
 
-<h3>Раздел 3: Вклады</h3>
+<h3>Раздел Вклады</h3>
 <ul>
 <li>Открытие вклада</li>
 <li>Показать закрытые вклады</li>
@@ -57,4 +58,33 @@
 </ul>
 
 
-## Разворачивание проекта
+## Разворачивание проекта (Linux)
+В корне проекта создать виртуальное окружение
+```sh
+python3 -m venv env
+```
+Активировать виотуальное окружение
+```sh
+source env/bin/activate
+```
+Установить зависимости
+```sh
+pip install -r requirements.txt
+```
+Установить pre-commit
+```sh
+pre-commit install
+```
+Установить в систему Allure
+https://docs.qameta.io/allure/#_installing_a_commandline
+
+## Запуск проекта
+Запуск тестов без отчётов
+```sh
+make pytest
+```
+Запуск тестов с формированием отчёта
+```sh
+make allure
+make report
+```
