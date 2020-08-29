@@ -25,7 +25,7 @@ def test_order_new_card(login, card_name, credit_limit, division):
     """
     login.cards.open_cards_page()
     login.cards.click_order_new_card_button()
-    # login.cards.click_credit_limit_radiobutton(card_name, credit_limit)
+    login.cards.click_credit_limit_radiobutton(card_name, credit_limit)
     login.cards.click_order_button(card_name)
     login.cards.pick_division_of_bank(division)
     login.cards.submit_application()
